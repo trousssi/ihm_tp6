@@ -83,6 +83,7 @@ public class DisqueHoraire extends JPanel {
     private void afficherMois(Graphics g) {
         TextLabel label;
         int x1, y1, x2, y2;
+        int m = mois;
         
         for(int i = 0; i < 12; i++) {
             // Calcul de l'angle en degré d'abord pour simplifier (mais non nécessaire)
@@ -95,22 +96,119 @@ public class DisqueHoraire extends JPanel {
             // Dessiner les sections
             g.setColor(Color.BLACK);
             
+            x1 = (int) (this.CENTRE_X + (this.RAYON_MOIS * Math.cos(angle)));
+            y1 = (int) (this.CENTRE_Y + (this.RAYON_MOIS * Math.sin(angle)));
+            x2 = (int) (this.CENTRE_X + (this.RAYON_HEURES * Math.cos(angle)));
+            y2 = (int) (this.CENTRE_Y + (this.RAYON_HEURES * Math.sin(angle)));
+            g.drawLine(x1, y1, x2, y2);
             // A FAIRE
 
             // Afficher les mois
             g.setColor(i == 0 ? Color.RED : Color.BLACK);
             
             // A FAIRE
-            //label = new TextLabel(?????)
+            String mois = MOIS[m];
+            m =  (m+1) % 12;
+            label = new TextLabel(mois,x1,y1,angle);
+            label.draw(g, 0, 0);
         }            
     }
     
     private void afficherJours(Graphics g) {    
         // A FAIRE
+     
+         TextLabel label;
+        int x1, y1, x2, y2;
+        int m = mois;
+        int j = jour;
+        int nbj = NB_JOURS[m];
+        if (this.bissextile && m == 1) {
+            nbj = nbj+1;
+        }
+        for(int i = 0; i < nbj; i++) {
+            // Calcul de l'angle en degré d'abord pour simplifier (mais non nécessaire)
+            //
+            // La méthode toRadians permet de convertir la valeur en degré 
+            // vers une valeur en radian, ce qui est nécessaire pour appliquer 
+            // les fonctions cosinus et sinus
+            double angle = Math.toRadians((i * 360.0) / nbj);
+            
+            // Dessiner les sections
+            g.setColor(Color.BLACK);
+            
+            x1 = (int) (this.CENTRE_X + (this.RAYON_JOUR * Math.cos(angle)));
+            y1 = (int) (this.CENTRE_Y + (this.RAYON_JOUR * Math.sin(angle)));
+            x2 = (int) (this.CENTRE_X + (this.RAYON_MOIS * Math.cos(angle)));
+            y2 = (int) (this.CENTRE_Y + (this.RAYON_MOIS * Math.sin(angle)));
+            g.drawLine(x1, y1, x2, y2);
+            // A FAIRE
+
+            // Afficher les mois
+            g.setColor(i == 0 ? Color.RED : Color.BLACK);
+            
+            // A FAIRE
+            
+            String jour = "               " + j; 
+            j = ((j+1) % nbj ) ;
+            if (j ==0) {
+                j = nbj;
+            }
+            label = new TextLabel(jour,x1,y1,angle);
+            label.draw(g, 0, 0);
+        }            
     }
     
     private void afficherHeures(Graphics g) {        
         // A FAIRE
+           TextLabel label;
+        int x1, y1, x2, y2;
+        int h = heure;
+        int m = minutes;
+        
+        if (m<15) {
+            m = 0;
+        }  else if (m>= 15 && m<45) {
+            m = 3;
+        } else {
+            m =0;
+            h = (h+1) % 24;
+        }
+        
+        for(int i = 0; i < 48; i++) {
+            // Calcul de l'angle en degré d'abord pour simplifier (mais non nécessaire)
+            //
+            // La méthode toRadians permet de convertir la valeur en degré 
+            // vers une valeur en radian, ce qui est nécessaire pour appliquer 
+            // les fonctions cosinus et sinus
+            double angle = Math.toRadians((i * 360.0) / 48);
+            
+            // Dessiner les sections
+            g.setColor(Color.BLACK);
+            
+            x1 = (int) (this.CENTRE_X + (this.RAYON_HEURES * Math.cos(angle)));
+            y1 = (int) (this.CENTRE_Y + (this.RAYON_HEURES * Math.sin(angle)));
+            x2 = (int) (this.CENTRE_X + (this.RAYON_CONTOUR * Math.cos(angle)));
+            y2 = (int) (this.CENTRE_Y + (this.RAYON_CONTOUR * Math.sin(angle)));
+            g.drawLine(x1, y1, x2, y2);
+            // A FAIRE
+
+            // Afficher les heures
+            g.setColor(i == 0 ? Color.RED : Color.BLACK);
+            
+            // A FAIRE
+            String heure_minute = h + "h" + m + "0" ;
+            if (m == 3) {
+                m =0;
+                h = (h+1) % 24;
+            } else {
+                m =3;
+            }
+            
+            
+            label = new TextLabel(heure_minute,x1,y1,angle);
+            label.draw(g, 0, 0);
+        }            
+    
     }
     
     private void afficherCurseur(Graphics g) {
