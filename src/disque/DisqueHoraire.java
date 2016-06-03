@@ -49,10 +49,10 @@ public class DisqueHoraire extends JPanel {
         setPreferredSize(new Dimension(2 * CENTRE_X, 2 * CENTRE_Y));
         
         // Créer 4 objets Circle chargés de dessiner les cercles concentriques
-        cJour = new Circle(CENTRE_X, CENTRE_Y, RAYON_JOUR, Color.BLACK);
-        cMois = new Circle(CENTRE_X, CENTRE_Y, RAYON_MOIS, Color.BLACK);
-        cHeures = new Circle(CENTRE_X, CENTRE_Y, RAYON_HEURES, Color.BLACK);
-        cContour = new Circle(CENTRE_X, CENTRE_Y, RAYON_CONTOUR, Color.BLACK);
+        cJour = new Circle(CENTRE_X, CENTRE_Y, RAYON_JOUR, Color.red);
+        cMois = new Circle(CENTRE_X, CENTRE_Y, RAYON_MOIS, Color.blue);
+        cHeures = new Circle(CENTRE_X, CENTRE_Y, RAYON_HEURES, Color.green);
+        cContour = new Circle(CENTRE_X, CENTRE_Y, RAYON_CONTOUR, Color.ORANGE);
         // A FAIRE
     }
     
@@ -91,7 +91,7 @@ public class DisqueHoraire extends JPanel {
             // La méthode toRadians permet de convertir la valeur en degré 
             // vers une valeur en radian, ce qui est nécessaire pour appliquer 
             // les fonctions cosinus et sinus
-            double angle = Math.toRadians((i * 360.0) / 12);
+            double angle = Math.toRadians(((i * 360.0) / 12)+15);
             
             // Dessiner les sections
             g.setColor(Color.BLACK);
@@ -131,7 +131,8 @@ public class DisqueHoraire extends JPanel {
             // La méthode toRadians permet de convertir la valeur en degré 
             // vers une valeur en radian, ce qui est nécessaire pour appliquer 
             // les fonctions cosinus et sinus
-            double angle = Math.toRadians((i * 360.0) / nbj);
+            int decalage = 180/nbj;
+            double angle = Math.toRadians(((i * 360.0) / nbj)+ decalage);
             
             // Dessiner les sections
             g.setColor(Color.BLACK);
@@ -180,7 +181,7 @@ public class DisqueHoraire extends JPanel {
             // La méthode toRadians permet de convertir la valeur en degré 
             // vers une valeur en radian, ce qui est nécessaire pour appliquer 
             // les fonctions cosinus et sinus
-            double angle = Math.toRadians((i * 360.0) / 48);
+            double angle = Math.toRadians(((i * 360.0) / 48)+ 360/48.0 - 3.75);
             
             // Dessiner les sections
             g.setColor(Color.BLACK);

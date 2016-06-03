@@ -6,22 +6,100 @@
 
 package disque;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 
 public class Disque extends JPanel {
     private GregorianCalendar calendar = new GregorianCalendar();
-    private final DisqueHoraire disque; // enlever quen fenetre
+    private DisqueHoraire disque; 
+    private JPanel panelBouton;
+    private JButton jourS;
+    private JButton jourP;
+    private JButton moisS;
+    private JButton moisP;
+    private JButton heureS;
+    private JButton heureP;
     
     public Disque() {       
         disque = new DisqueHoraire();
-        this.add(disque);
+        this.setLayout(new BorderLayout());
+        
+        this.add(disque,BorderLayout.CENTER);
         setDate();
         
+        this.add(this.panelBouton = new JPanel(),BorderLayout.SOUTH);
         // (1) Creer les boutons pour controler le disque horaire
         // (2) Creer l'interface pour ajouter les boutons et le disque
         // (3) S'abonner aux boutons pour controler la date : utiliser
         // les méthodes ci-dessous
+        this.jourS = new JButton("jour suivant");
+        this.panelBouton.add(this.jourS);
+        
+        this.jourS.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               jourSuivant();
+               disque.repaint();
+            }
+        });
+        
+        this.jourP = new JButton("jour précedent");
+        this.panelBouton.add(this.jourP);
+        
+        this.jourP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               jourPrecedent();
+               disque.repaint();
+            }
+        });
+        
+        this.moisS = new JButton("mois suivant");
+        this.panelBouton.add(this.moisS);
+        
+        this.moisS.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               moisSuivant();
+               disque.repaint();
+            }
+        });
+        
+        this.moisP = new JButton("mois précedent");
+        this.panelBouton.add(this.moisP);
+        
+        this.moisP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               moisPrecedent();
+               disque.repaint();
+            }
+        });
+        this.heureS = new JButton("heure suivante");
+        this.panelBouton.add(this.heureS);
+        
+        this.heureS.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               heureSuivante();
+               disque.repaint();
+            }
+        });
+        
+        this.heureP = new JButton("heure précedente");
+        this.panelBouton.add(this.heureP);
+        
+        this.heureP.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               heurePrecedente();
+               disque.repaint();
+            }
+        });
+        
     }
     
     private void moisSuivant() { calendar.add(Calendar.MONTH, 1); setDate(); }
