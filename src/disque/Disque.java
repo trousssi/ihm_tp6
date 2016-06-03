@@ -7,6 +7,7 @@
 package disque;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
@@ -23,7 +24,11 @@ public class Disque extends JPanel {
     private JButton heureS;
     private JButton heureP;
     
-    public Disque() {       
+    
+    
+    public Disque() {
+       
+       
         disque = new DisqueHoraire();
         this.setLayout(new BorderLayout());
         
@@ -42,6 +47,7 @@ public class Disque extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                jourSuivant();
+               resize();
                disque.repaint();
             }
         });
@@ -53,6 +59,7 @@ public class Disque extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                jourPrecedent();
+               resize();
                disque.repaint();
             }
         });
@@ -64,6 +71,7 @@ public class Disque extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                moisSuivant();
+               resize();
                disque.repaint();
             }
         });
@@ -75,6 +83,7 @@ public class Disque extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                moisPrecedent();
+               resize();
                disque.repaint();
             }
         });
@@ -85,7 +94,9 @@ public class Disque extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                heureSuivante();
+               resize();
                disque.repaint();
+               
             }
         });
         
@@ -96,6 +107,7 @@ public class Disque extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                heurePrecedente();
+               resize();
                disque.repaint();
             }
         });
@@ -108,6 +120,13 @@ public class Disque extends JPanel {
     private void heurePrecedente() { calendar.add(Calendar.HOUR_OF_DAY, -1); setDate(); }
     private void jourSuivant() { calendar.add(Calendar.DAY_OF_MONTH, 1); setDate(); }
     private void jourPrecedent() { calendar.add(Calendar.DAY_OF_MONTH, -1); setDate(); }
+    
+    private void resize() {
+        Dimension dim = this.getSize();
+        this.setSize(dim.width+1,dim.height+1);
+        this.setSize(dim);
+        
+    }
     
     private void setDate() {
         boolean bissextile;
